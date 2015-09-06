@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="WindowsService.Installer" Language="1033" Version="1.0.0.0" Manufacturer="EFP" UpgradeCode="00d0368c-74fa-49c9-b202-9cc6bd5232fa">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="WindowsService.Installer" Level="1">
+      <ComponentGroupRef Id="CG_INSTALL" />
+      <ComponentGroupRef Id="CG_REFS" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="WindowsService.Installer" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+
+  <Fragment Id="REFERENCES">
+    <ComponentGroup Id="CG_REFS"  Directory="INSTALLFOLDER">
+      <Component Id="COM_Common">
+        <File Id="FIL_Common" KeyPath="yes" Source="$(var.WindowsService.Core.TargetDir)WindowsService.Library.dll"
+              Name="WindowsService.Library.dll"></File>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment Id="INSTALLATION">
+    <ComponentGroup Id="CG_INSTALL" Directory="INSTALLFOLDER">
+
+      <Component Id="COMP_Installer" Guid="{1ACC44E6-6120-49A1-8693-396680C44D7C}">
+        <File Id="WIX_Installer" KeyPath="yes" Source="$(var.WindowsService.Core.TargetPath)" Name="WindowsService.Core.exe" />
+
+        <ServiceInstall Id="InstallWindowsService"
+                        Name="NewestService"
+                        DisplayName="Newest Windows Service"
+                        Description="Service created with WIX ToolSet"
+                        Start="auto"
+                        ErrorControl="normal"
+                        Type="ownProcess" />
+
+        <ServiceControl
+              Id="sc_WindowsService"
+              Name="NewestService"
+              Start="install"
+              Stop="both"
+              Remove="uninstall"
+              Wait="yes" />
+
+      </Component>
+
+      <Component Id="COM_Settings" Guid="{4147AC8D-5731-498E-90ED-A1B960B3D76C}">
+        <File Id="FIL_Setting" KeyPath="yes" Source="$(var.WindowsService.Core.TargetDir)WindowsService.Core.exe.config"
+              Name="WindowsService.Core.exe.config" />
+      </Component>
+
+    </ComponentGroup>
+  </Fragment>
+</Wix>

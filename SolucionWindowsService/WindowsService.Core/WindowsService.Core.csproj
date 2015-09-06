@@ -54,6 +54,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WindowsService.Library\WindowsService.Library.csproj">
+      <Project>{b1315469-f3d6-4bbb-9a20-02b07e578605}</Project>
+      <Name>WindowsService.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

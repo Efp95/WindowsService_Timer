@@ -1,0 +1,20 @@
+====================================================================
+======================= Install Instructions =======================
+====================================================================
+
+1. Clean Solution.
+2. Rebuild Solution.
+3. Go to the solution folder, then "\WindowsService.Installer\bin\Debug\" and run the install file "WindowsService.Installer.msi".
+4. To see what the service writes in the log file go to "C:\Program Files (x86)\WindowsService.Installer"
+5. You can see the services running in the "Services Manager" (run services.msc)
+
+
+======================================================================
+======================= Uninstall Instructions =======================
+======================================================================
+
+1. Go to Panel Control
+2. Select Programs
+3. Click on Uninstall a Program
+4. Search by name "WindowsInstaller.Service", or by editor "EFP"
+5. Select the service and then uninstall
