@@ -1,27 +1,27 @@
-IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name=N'DbService')
-	DROP DATABASE [DbService]
-
-
-CREATE DATABASE [DbService]
+IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name=N'DbService')
+	CREATE DATABASE [DbService]
 GO
 
 USE [DbService]
 GO
 
-CREATE TABLE [dbo].[TB_Messages]
-(
-	[Id]			int identity(1,1) PRIMARY KEY,
-	[FileMessage]	varchar(max) NOT NULL
-)
+IF NOT EXISTS (SELECT name FROM DbService.dbo.sysobjects WHERE name=N'TB_Messages')
+	CREATE TABLE [dbo].[TB_Messages]
+	(
+		[Id]			int identity(1,1) PRIMARY KEY,
+		[FileMessage]	varchar(max) NOT NULL
+	)
 GO
 
-CREATE TABLE [dbo].[TB_Logs]
-(
-	[Id]			int identity(1,1) PRIMARY KEY,
-	[LogMessage]	varchar(max) NOT NULL
-)
+IF NOT EXISTS (SELECT name FROM DbService.dbo.sysobjects WHERE name=N'TB_Logs')
+	CREATE TABLE [dbo].[TB_Logs]
+	(
+		[Id]			int identity(1,1) PRIMARY KEY,
+		[LogMessage]	varchar(max) NOT NULL
+	)
 GO
 
+IF NOT EXISTS (SELECT Id FROM TB_Messages)
 INSERT INTO [TB_Messages] (FileMessage)
 VALUES
 ('Random Message 1'),
